@@ -1,0 +1,33 @@
+
+name: Deploy Databricks
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Databricks CLI
+      run: |
+        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+    - name: Configure Auth
+      run: |
+        echo "[DEFAULT]" > ~/.databrickscfg
+        echo "host = ${{ secrets.DATABRICKS_HOST }}" >> ~/.databrickscfg
+        echo "token = ${{ secrets.DATABRICKS_TOKEN }}" >> ~/.databrickscfg
+
+    - name: Deploy Notebooks
+      run: |
+        databricks workspace import_dir notebooks /Shared/databricks-demo --overwrite
+
+    - name: Deploy Job
+      run: |
+        databricks jobs create --json @jobs/job.json || echo "Job exists"
