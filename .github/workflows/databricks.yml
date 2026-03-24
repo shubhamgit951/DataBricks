@@ -26,7 +26,7 @@ jobs:
 
     - name: Deploy Notebooks
       run: |
-        databricks workspace import_dir notebooks /Shared/databricks-demo --overwrite
+        databricks workspace import_dir notebooks /Shared/databricks-demo --overwrite true
 
     - name: Deploy Job
       run: |
