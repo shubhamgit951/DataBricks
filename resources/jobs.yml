@@ -1,0 +1,16 @@
+
+
+resources:
+  jobs:
+    demo_job:
+      name: Demo Job
+
+      tasks:
+        - task_key: task1
+          notebook_task:
+            notebook_path: ../notebooks/etl.py
+
+          new_cluster:
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "Standard_DS3_v2"
+            num_workers: 1

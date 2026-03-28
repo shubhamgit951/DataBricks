@@ -1,0 +1,24 @@
+
+name: CD - Deploy Bundle
+
+on:
+  workflow_run:
+    workflows: ["CI - Validate Bundle"]
+    types: [completed]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CLI
+        run: pip install databricks-cli databricks-bundle
+
+      - name: Deploy Bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: databricks bundle deploy --target dev

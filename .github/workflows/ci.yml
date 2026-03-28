@@ -1,33 +1,21 @@
-
-name: Deploy Databricks
+name: CI - Validate Bundle
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-    - name: Install Databricks CLI
-      run: |
-        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+      - name: Install CLI
+        run: pip install databricks-cli databricks-bundle
 
-    - name: Configure Auth
-      run: |
-        echo "[DEFAULT]" > ~/.databrickscfg
-        echo "host = ${{ secrets.DATABRICKS_HOST }}" >> ~/.databrickscfg
-        echo "token = ${{ secrets.DATABRICKS_TOKEN }}" >> ~/.databrickscfg
-
-    - name: Deploy Notebooks
-      run: |
-        databricks workspace import-dir notebooks /Shared/databricks-demo --overwrite 
-
-    - name: Deploy Job
-      run: |
-        databricks jobs create --json @jobs/job.json || echo "Job exists"
+      - name: Validate Bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: databricks bundle validate
