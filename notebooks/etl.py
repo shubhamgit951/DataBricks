@@ -1,2 +1,2 @@
 
-print("Hello from Databricks 🚀")
+print("Hello from Databricks Bundle 🚀")
