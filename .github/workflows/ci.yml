@@ -12,14 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # ✅ ADD THIS STEP (MOST IMPORTANT)
-      - name: Set Python Version
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install CLI
-        run: pip install databricks-cli databricks-bundle
+      - name: Install Databricks CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
       - name: Validate Bundle
         env:
