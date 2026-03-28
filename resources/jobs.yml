@@ -7,7 +7,7 @@ resources:
         - task_key: add_task
 
           notebook_task:
-            notebook_path: /Workspace/demo-bundle/notebooks/addition.py
+            notebook_path: /Workspace/Users/skazure951@gmail.com/demo-bundle/notebooks/addition.py
 
           new_cluster:
             spark_version: "13.3.x-scala2.12"
