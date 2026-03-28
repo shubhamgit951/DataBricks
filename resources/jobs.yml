@@ -8,7 +8,7 @@ resources:
       tasks:
         - task_key: task1
           notebook_task:
-            notebook_path: ../notebooks/etl.py
+            notebook_path: /Workspace/demo-bundle/notebooks/etl.py
 
           new_cluster:
             spark_version: "13.3.x-scala2.12"
