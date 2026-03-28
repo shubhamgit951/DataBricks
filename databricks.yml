@@ -1,9 +1,6 @@
-
-bundle:
-  name: demo-bundle
-
 targets:
   dev:
     workspace:
-      host: https://adb-7405613799534295.15.azuredatabricks.net
-    workspace_root: /Workspace/demo-bundle
+      host: https://adb-xxxx.azuredatabricks.net
+
+    workspace_root: /Workspace/Users/skazure951@gmail.com/demo-bundle
